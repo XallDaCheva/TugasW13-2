@@ -31,7 +31,7 @@ class TransactionController extends Controller
             'quantity' => 'required|integer',
             'total_amount' => 'required|numeric'
         ]));
-        return redirect()->route('transactions.index');
+        return view('index');
     }
 
     public function edit(Transaction $transaction)
@@ -50,12 +50,12 @@ class TransactionController extends Controller
             'quantity' => 'required|integer',
             'total_amount' => 'required|numeric'
         ]));
-        return redirect()->route('transactions.index');
+        return redirect()->route('index');
     }
 
     public function destroy(Transaction $transaction)
     {
         $transaction->delete();
-        return redirect()->route('transactions.index');
+        return redirect()->route('index');
     }
 }

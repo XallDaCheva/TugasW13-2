@@ -26,7 +26,7 @@ class CustomerController extends Controller
             'email' => 'required|email|unique:customers,email',
             'phone_number' => 'required'
         ]));
-        return redirect()->route('customers.index');
+        return view('index');
     }
 
     public function edit(Customer $customer)
@@ -42,12 +42,12 @@ class CustomerController extends Controller
             'email' => 'required|email|unique:customers,email,' . $customer->id,
             'phone_number' => 'required'
         ]));
-        return redirect()->route('customers.index');
+        return redirect()->route('index');
     }
 
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        return redirect()->route('customers.index');
+        return redirect()->route('index');
     }
 }

@@ -26,7 +26,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock_quantity' => 'required|integer'
         ]));
-        return redirect()->route('products.index');
+        return view('index');
     }
 
     public function edit(Product $product)
@@ -42,12 +42,30 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'stock_quantity' => 'required|integer'
         ]));
-        return redirect()->route('products.index');
+        return redirect()->route('index');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('index');
+    }
+
+    public function searchByName(Request $request) {
+        $name = $request->input('name');
+        $products = Product::where('name', '=', $name)->get();
+        return view('products.hasilSearch', compact('products'));
+    }
+    
+    public function searchByPriceNotEqual(Request $request) {
+        $price = $request->input('price');
+        $products = Product::where('price', '!=', $price)->get();
+        return view('products.hasilSearch', compact('products'));
+    }
+    
+    public function searchByDescriptionLike(Request $request) {
+        $description = $request->input('description');
+        $products = Product::where('description', 'LIKE', "%$description%")->get();
+        return view('products.hasilSearch', compact('products'));
     }
 }
